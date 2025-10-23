@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Drugbattle — Fiktives Handels-Spiel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="join-screen" class="card">
+    <h2>Drugbattle</h2>
+    <p class="muted">Nur ein Spiel. Keine Anleitung oder Förderung realer illegaler Handlungen.</p>
+    <label>Spielername:
+      <input id="name" value="Spieler" />
+    </label>
+    <label>Raum:
+      <input id="room" value="main" />
+    </label>
+    <button id="joinBtn">Beitreten</button>
+    <div style="margin-top:8px">
+      <button id="open-settings">Einstellungen</button>
+    </div>
+  </div>
+
+  <div id="game" class="hidden">
+    <header>
+      <h2>Markt</h2>
+      <div id="player-info">
+        <span id="player-name"></span> — Cash: <span id="player-cash">0</span>€
+      </div>
+    </header>
+
+    <section id="market" class="card">
+      <table>
+        <thead>
+          <tr><th>Ware</th><th>Preis (€)</th><th>Aktion</th></tr>
+        </thead>
+        <tbody id="market-body"></tbody>
+      </table>
+    </section>
+
+    <section id="inventory" class="card">
+      <h3>Inventar</h3>
+      <ul id="inv-list"></ul>
+    </section>
+
+    <section id="log" class="card">
+      <h3>Log</h3>
+      <div id="messages"></div>
+    </section>
+
+    <div style="margin-top:8px">
+      <button id="leaveBtn">Verlassen</button>
+    </div>
+  </div>
+
+  <!-- Einstellungen Modal -->
+  <div id="settings-modal" class="card hidden">
+    <h3>Einstellungen (Raum)</h3>
+    <label>Startgeld:
+      <input id="setting-startMoney" type="number" min="0" value="1000" />
+    </label>
+    <label>Takt (ms):
+      <input id="setting-tickMs" type="number" min="100" value="1000" />
+    </label>
+
+    <div style="margin-top:8px">
+      <label>
+        <input type="radio" name="winMode" id="win-money" checked /> Sieg nach Geldziel
+      </label>
+      <label>
+        <input type="radio" name="winMode" id="win-time" /> Sieg nach Zeit
+      </label>
+    </div>
+
+    <label>Geldziel (10.000 - 1000000000000):
+      <input id="setting-moneyTarget" type="range" min="10000" max="1000000000000" value="100000" step="10000" />
+      <span id="moneyTargetVal">100000</span> €
+    </label>
+
+    <label>Zeitziel in Sekunden (60 - 6000000):
+      <input id="setting-timeTargetSec" type="range" min="60" max="6000000" value="3600" step="60" />
+      <span id="timeTargetVal">3600</span> s
+    </label>
+
+    <div style="margin-top:8px">
+      <button id="save-settings">Speichern</button>
+      <button id="close-settings">Schließen</button>
+    </div>
+  </div>
+
+  <script>
+    // SERVER_URL: Falls Frontend auf Vercel deployed ist, setze hier die Backend-URL,
+    // z.B. https://drugbattle-backend.example.com
+    window.SERVER_URL = window.SERVER_URL || '';
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
