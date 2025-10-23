@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+      - ./data.db:/app/data.db
+    environment:
+      - PORT=3000
+      - TICK_MS=1000
+      - START_MONEY=1000
+    restart: unless-stopped
